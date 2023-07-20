@@ -1,44 +1,4 @@
-import {useEffect, useState} from 'react';
-import axios from 'axios';
-import {ScrollView, StyleSheet} from 'react-native';
-import {API_KEY} from '../env';
-import Article, {ArticleProps} from '../components/Article';
-import {useNavigation} from '@react-navigation/native';
+import Articles from '../components/Articles';
 export default function HomeScreen() {
-  const [articles, setArticles] = useState<ArticleProps[] | null>(null);
-  const navigation = useNavigation();
-  const handleArticleClick = (article: ArticleProps) => {
-    navigation.navigate('Article', {article});
-  };
-  useEffect(() => {
-    const fetchHome = async () => {
-      try {
-        let data = await axios.get(
-          `https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${API_KEY}`,
-        );
-        setArticles(data.data.results);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    fetchHome();
-  });
-  return (
-    <ScrollView style={styles.articlesContainer}>
-      {articles?.map((article: ArticleProps) => (
-        <Article
-          key={article.title}
-          article={article}
-          handleArticleClick={handleArticleClick}
-        />
-      ))}
-    </ScrollView>
-  );
+  return <Articles category="home" />;
 }
-
-const styles = StyleSheet.create({
-  articlesContainer: {
-    padding: 10,
-    flex: 1,
-  },
-});

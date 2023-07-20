@@ -4,21 +4,17 @@
  *
  * @format
  */
-
-import {
-  faSquareCheck,
-  IconDefinition,
-} from '@fortawesome/free-regular-svg-icons';
-import {faHome} from '@fortawesome/free-solid-svg-icons';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ArticleScreen from './screens/ArticleScreen';
 import CategoryScreen from './screens/CategoryScreen';
 import HomeScreen from './screens/HomeScreen';
+import SectionsScreen from './screens/SectionsScreen';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
+const capitalize = (s: string) => s && s[0].toUpperCase() + s.slice(1);
 
 function App(): JSX.Element {
   return (
@@ -26,6 +22,11 @@ function App(): JSX.Element {
       <Stack.Navigator>
         <Stack.Screen name="Home" component={StackScreen} />
         <Stack.Screen name="Article" component={ArticleScreen} />
+        <Stack.Screen
+          name="Category"
+          component={CategoryScreen}
+          options={({route}) => ({title: capitalize(route.params.category)})}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -33,9 +34,12 @@ function App(): JSX.Element {
 
 function StackScreen() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
       <Tab.Screen name="HomeScreen" component={HomeScreen} />
-      <Tab.Screen name="Categories" component={CategoryScreen} />
+      <Tab.Screen name="Categories" component={SectionsScreen} />
     </Tab.Navigator>
   );
 }
