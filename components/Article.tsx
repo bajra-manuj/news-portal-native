@@ -1,13 +1,14 @@
-import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 
 export interface ArticleProps {
   abstract: string;
   byline: string;
   published_date: string;
+  updated_date: string;
   subsection: string;
   title: string;
   url: string;
+  uri: string;
   multimedia: [
     {
       caption: string;
@@ -18,9 +19,17 @@ export interface ArticleProps {
     },
   ];
 }
-export default function Article({article}: {article: ArticleProps}) {
+export default function Article({
+  article,
+  handleArticleClick,
+}: {
+  article: ArticleProps;
+  handleArticleClick: (article: ArticleProps) => void;
+}) {
   return (
-    <View style={styles.articleContainer}>
+    <Pressable
+      style={styles.articleContainer}
+      onPress={() => handleArticleClick(article)}>
       <View style={styles.textContainer}>
         <Text>{article.title}</Text>
         <Text style={styles.publishedText}>{article.published_date}</Text>
@@ -28,7 +37,7 @@ export default function Article({article}: {article: ArticleProps}) {
       <View style={styles.imageContainer}>
         <Image source={{uri: article.multimedia[0].url}} style={styles.image} />
       </View>
-    </View>
+    </Pressable>
   );
 }
 

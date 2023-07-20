@@ -1,11 +1,15 @@
 import {useEffect, useState} from 'react';
 import axios from 'axios';
-import React from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import {API_KEY} from '../env';
 import Article, {ArticleProps} from '../components/Article';
+import {useNavigation} from '@react-navigation/native';
 export default function HomeScreen() {
   const [articles, setArticles] = useState<ArticleProps[] | null>(null);
+  const navigation = useNavigation();
+  const handleArticleClick = (article: ArticleProps) => {
+    navigation.navigate('Article', {article});
+  };
   useEffect(() => {
     const fetchHome = async () => {
       try {
@@ -22,7 +26,11 @@ export default function HomeScreen() {
   return (
     <ScrollView style={styles.articlesContainer}>
       {articles?.map((article: ArticleProps) => (
-        <Article article={article} />
+        <Article
+          key={article.title}
+          article={article}
+          handleArticleClick={handleArticleClick}
+        />
       ))}
     </ScrollView>
   );
