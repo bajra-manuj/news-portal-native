@@ -1,9 +1,10 @@
 import {useEffect, useState} from 'react';
 import axios from 'axios';
-import {ScrollView, StyleSheet} from 'react-native';
-import {API_KEY} from '../env';
+import {FlatList, StyleSheet} from 'react-native';
+import {API_KEY} from '../../env';
 import Article, {ArticleProps} from '../components/Article';
 import {useNavigation} from '@react-navigation/native';
+
 export default function Articles({category}: {category: string}) {
   const [articles, setArticles] = useState<ArticleProps[] | null>(null);
   const navigation = useNavigation();
@@ -16,7 +17,9 @@ export default function Articles({category}: {category: string}) {
         let data = await axios.get(
           `https://api.nytimes.com/svc/topstories/v2/${category}.json?api-key=${API_KEY}`,
         );
-        setArticles(data.data.results);
+        const res = data.data.results;
+        //figure out setting up a unique id field for articles. react-native-uuid refreshes the images
+        setArticles(res);
       } catch (e) {
         console.log(e);
       }
@@ -24,15 +27,14 @@ export default function Articles({category}: {category: string}) {
     fetchHome();
   });
   return (
-    <ScrollView style={styles.articlesContainer}>
-      {articles?.map((article: ArticleProps) => (
-        <Article
-          key={article.title}
-          article={article}
-          handleArticleClick={handleArticleClick}
-        />
-      ))}
-    </ScrollView>
+    <FlatList
+      style={styles.articlesContainer}
+      data={articles}
+      renderItem={({item}) => (
+        <Article article={item} handleArticleClick={handleArticleClick} />
+      )}
+      keyExtractor={item => item.uri}
+    />
   );
 }
 

@@ -1,16 +1,10 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import ArticleScreen from './screens/ArticleScreen';
-import CategoryScreen from './screens/CategoryScreen';
-import HomeScreen from './screens/HomeScreen';
-import SectionsScreen from './screens/SectionsScreen';
+import ArticleScreen from './src/screens/ArticleScreen';
+import CategoryScreen from './src/screens/CategoryScreen';
+import HomeScreen from './src/screens/HomeScreen';
+import SectionsScreen from './src/screens/SectionsScreen';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 

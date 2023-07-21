@@ -7,7 +7,7 @@ export default function ArticleScreen() {
   const updated_date = moment(article.updated_date).format('DD-MM-yy');
   return (
     <ScrollView style={styles.articleContainer}>
-      <View style={styles.textContainer}>
+      <View style={styles.titleContainer}>
         <Text style={styles.title}>{article.title}</Text>
       </View>
       <Image source={{uri: article.multimedia[0].url}} style={styles.image} />
@@ -34,10 +34,16 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 30,
   },
+  titleContainer: {
+    paddingHorizontal: 10,
+    paddingLeft: 15,
+    fontSize: 15,
+  },
   textContainer: {
     paddingHorizontal: 10,
     paddingLeft: 15,
     fontSize: 15,
+    marginBottom: 20,
   },
   title: {
     fontSize: 20,
@@ -58,7 +64,6 @@ const styles = StyleSheet.create({
   publishedText: {
     fontSize: 12,
     color: 'black',
-    marginTop: 5,
   },
   byline: {
     fontWeight: '600',

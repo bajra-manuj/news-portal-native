@@ -1,5 +1,5 @@
+import moment from 'moment';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
-
 export interface ArticleProps {
   abstract: string;
   byline: string;
@@ -9,6 +9,7 @@ export interface ArticleProps {
   title: string;
   url: string;
   uri: string;
+  id: string;
   multimedia: [
     {
       caption: string;
@@ -26,16 +27,25 @@ export default function Article({
   article: ArticleProps;
   handleArticleClick: (article: ArticleProps) => void;
 }) {
+  const published_date = moment(article.published_date).format('D MMM ');
+
   return (
     <Pressable
       style={styles.articleContainer}
       onPress={() => handleArticleClick(article)}>
       <View style={styles.textContainer}>
         <Text>{article.title}</Text>
-        <Text style={styles.publishedText}>{article.published_date}</Text>
+        <Text style={styles.publishedText}>{published_date}</Text>
       </View>
       <View style={styles.imageContainer}>
-        <Image source={{uri: article.multimedia[0].url}} style={styles.image} />
+        <Image
+          source={{
+            uri: article?.multimedia?.length
+              ? article.multimedia[0].url
+              : 'https://nelowvision.com/wp-content/uploads/2018/11/Picture-Unavailable.jpg',
+          }}
+          style={styles.image}
+        />
       </View>
     </Pressable>
   );
@@ -52,14 +62,15 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: '25%',
     height: 80,
-    paddingRight: 2,
   },
   image: {
     width: '100%',
     height: '100%',
-    resizeMode: 'contain',
+    resizeMode: 'stretch',
   },
   textContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
     padding: 5,
     width: '70%',
   },
