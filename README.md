@@ -1,8 +1,19 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# News Portal
+
+A news portal that pulls news from NewYork Times.
+
+# Screenshots
+
+![Home](screenshots/home.png)
+_Home Screen_
+![Home](screenshots/sections.png)
+_Category Screen_
+![Home](screenshots/category.png)
+_News by Category_
 
 # Getting Started
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+> **Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
 ## Step 1: Start the Metro Server
 
