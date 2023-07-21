@@ -1,3 +1,4 @@
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome6';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -14,7 +15,7 @@ function App(): JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={StackScreen} />
+        <Stack.Screen name="Home" component={TabScreen} />
         <Stack.Screen name="Article" component={ArticleScreen} />
         <Stack.Screen
           name="Category"
@@ -26,14 +27,32 @@ function App(): JSX.Element {
   );
 }
 
-function StackScreen() {
+function TabScreen() {
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
       }}>
-      <Tab.Screen name="HomeScreen" component={HomeScreen} />
-      <Tab.Screen name="Categories" component={SectionsScreen} />
+      <Tab.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({color, size}) => (
+            <FontAwesomeIcon name={'house'} color={color} size={size} solid />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Categories"
+        component={SectionsScreen}
+        options={{
+          tabBarLabel: 'Categories',
+          tabBarIcon: ({color, size}) => (
+            <FontAwesomeIcon name={'list'} color={color} size={size} solid />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }
