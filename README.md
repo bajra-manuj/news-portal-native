@@ -5,11 +5,9 @@ A news portal that pulls news from NewYork Times.
 # Screenshots
 
 ![Home](screenshots/home.png)
-_Home Screen_
-![Home](screenshots/sections.png)
-_Category Screen_
-![Home](screenshots/category.png)
-_News by Category_
+![Category](screenshots/sections.png)
+![NewsByCategory](screenshots/category.png)
+![Article](screenshots/article.png)
 
 # Getting Started
 

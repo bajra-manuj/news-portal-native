@@ -9,7 +9,7 @@ export interface ArticleProps {
   title: string;
   url: string;
   uri: string;
-  id: string;
+  id?: string;
   multimedia: [
     {
       caption: string;
