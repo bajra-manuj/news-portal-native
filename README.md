@@ -4,10 +4,11 @@ A news portal that pulls news from NewYork Times.
 
 # Screenshots
 
-![Home](screenshots/home.png)
-![Category](screenshots/sections.png)
-![NewsByCategory](screenshots/category.png)
-![Article](screenshots/article.png)
+<img src="screenshots/home.png" height="600">
+<img src="screenshots/sections.png" height="600">
+<img src="screenshots/category.png" height="600">
+<img src="screenshots/article.png" height="600">
+<img src="screenshots/pagination.png" height="600">
 
 # Getting Started
 
