@@ -7,7 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 
 export default function Articles({category}: {category: string}) {
   const [articles, setArticles] = useState<ArticleProps[]>([]);
-  const [refreshing, setRefreshing] = useState(false);
+  const [refreshing, setRefreshing] = useState(true);
   const [page, setPage] = useState(1);
   const [totalArticles, setTotalArticles] = useState<ArticleProps[]>([]);
   const navigation = useNavigation();
@@ -24,17 +24,15 @@ export default function Articles({category}: {category: string}) {
       //figure out setting up a unique id field for articles. react-native-uuid refreshes the images
       setTotalArticles(res);
       setArticles(res.slice(0, page * 10));
-      setRefreshing(false);
     } catch (e) {
       console.log(e);
     }
+    setRefreshing(false);
   }, [category, page]);
 
   useEffect(() => {
     fetchHome();
   }, []);
-
-  useEffect(() => {}, [page]);
 
   return articles.length !== 0 ? (
     <FlatList
