@@ -9,6 +9,7 @@ A news portal that pulls news from NewYork Times.
 <img src="screenshots/category.png" height="600">
 <img src="screenshots/article.png" height="600">
 <img src="screenshots/pagination.png" height="600">
+<img src="screenshots/drawer.png" height="600">
 
 # Getting Started
 

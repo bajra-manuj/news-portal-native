@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome6';
@@ -6,8 +7,10 @@ import ArticleScreen from './src/screens/ArticleScreen';
 import CategoryScreen from './src/screens/CategoryScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import SectionsScreen from './src/screens/SectionsScreen';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 const capitalize = (s: string) => s && s[0].toUpperCase() + s.slice(1);
 
@@ -15,13 +18,17 @@ function App(): JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={TabScreen} />
-        <Stack.Screen name="Article" component={ArticleScreen} />
+        <Stack.Screen
+          name="HomeScreen"
+          component={MyDrawer}
+          options={() => ({headerShown: false})}
+        />
         <Stack.Screen
           name="Category"
           component={CategoryScreen}
           options={({route}) => ({title: capitalize(route.params.category)})}
         />
+        <Stack.Screen name="Article" component={ArticleScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -34,7 +41,7 @@ function TabScreen() {
         headerShown: false,
       }}>
       <Tab.Screen
-        name="HomeScreen"
+        name="Home"
         component={HomeScreen}
         options={{
           tabBarLabel: 'Home',
@@ -44,16 +51,42 @@ function TabScreen() {
         }}
       />
       <Tab.Screen
-        name="Categories"
+        name="Sections"
         component={SectionsScreen}
         options={{
-          tabBarLabel: 'Categories',
+          tabBarLabel: 'Sections',
           tabBarIcon: ({color, size}) => (
             <FontAwesomeIcon name={'list'} color={color} size={size} solid />
           ),
         }}
       />
     </Tab.Navigator>
+  );
+}
+function MyDrawer() {
+  return (
+    <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          drawerLabel: 'Home',
+          drawerIcon: ({color, size}) => (
+            <FontAwesomeIcon name={'house'} color={color} size={size} solid />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Sections"
+        component={SectionsScreen}
+        options={{
+          drawerLabel: 'Sections',
+          drawerIcon: ({color, size}) => (
+            <FontAwesomeIcon name={'list'} color={color} size={size} solid />
+          ),
+        }}
+      />
+    </Drawer.Navigator>
   );
 }
 
