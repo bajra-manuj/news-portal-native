@@ -1,10 +1,11 @@
 import {useCallback, useEffect, useState} from 'react';
 import axios from 'axios';
-import {Button, FlatList, RefreshControl, StyleSheet, Text} from 'react-native';
+import {FlatList, RefreshControl, StyleSheet} from 'react-native';
 import {API_KEY} from '../../env';
 import Article, {ArticleProps} from '../components/Article';
 import {useNavigation} from '@react-navigation/native';
 
+const NUMBER_OF_ARTICLES_PER_PAGE = 10;
 export default function Articles({category}: {category: string}) {
   const [articles, setArticles] = useState<ArticleProps[]>([]);
   const [refreshing, setRefreshing] = useState(true);
@@ -23,7 +24,7 @@ export default function Articles({category}: {category: string}) {
       const res = data.data.results;
       //figure out setting up a unique id field for articles. react-native-uuid refreshes the images
       setTotalArticles(res);
-      setArticles(res.slice(0, page * 10));
+      setArticles(res.slice(0, page * NUMBER_OF_ARTICLES_PER_PAGE));
     } catch (e) {
       console.log(e);
     }
@@ -34,7 +35,7 @@ export default function Articles({category}: {category: string}) {
     fetchHome();
   }, []);
 
-  return articles.length !== 0 ? (
+  return (
     <FlatList
       style={styles.articlesContainer}
       data={articles}
@@ -42,16 +43,11 @@ export default function Articles({category}: {category: string}) {
         <Article article={item} handleArticleClick={handleArticleClick} />
       )}
       keyExtractor={item => item.uri}
-      ListFooterComponent={
-        <Button
-          onPress={() => {
-            setPage(page + 1);
-            setArticles(totalArticles.slice(0, page * 10));
-          }}
-          title="Load More"
-        />
-      }
-      ListFooterComponentStyle={styles.listFooter}
+      onEndReachedThreshold={0.2}
+      onEndReached={() => {
+        setPage(page + 1);
+        setArticles(totalArticles.slice(0, (page + 1) * 10));
+      }}
       refreshControl={
         <RefreshControl
           refreshing={refreshing}
@@ -63,19 +59,13 @@ export default function Articles({category}: {category: string}) {
         />
       }
     />
-  ) : (
-    <Text>Error Fetching articles</Text>
   );
 }
 
 const styles = StyleSheet.create({
   articlesContainer: {
     padding: 10,
-    marginBottom: '2%',
+    marginBottom: '3%',
     flex: 1,
-  },
-  listFooter: {
-    margin: 5,
-    justifyContent: 'space-between',
   },
 });
