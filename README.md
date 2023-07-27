@@ -4,6 +4,7 @@ A news portal that pulls news from NewYork Times.
 
 # Screenshots
 
+<img src="screenshots/login.png" height="600">
 <img src="screenshots/home.png" height="600">
 <img src="screenshots/sections.png" height="600">
 <img src="screenshots/category.png" height="600">
