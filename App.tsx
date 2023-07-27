@@ -8,6 +8,7 @@ import CategoryScreen from './src/screens/CategoryScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import SectionsScreen from './src/screens/SectionsScreen';
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import Login from './src/screens/Login';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -17,7 +18,12 @@ const capitalize = (s: string) => s && s[0].toUpperCase() + s.slice(1);
 function App(): JSX.Element {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={() => ({headerShown: false})}
+        />
         <Stack.Screen
           name="HomeScreen"
           component={MyDrawer}
@@ -68,7 +74,7 @@ function MyDrawer() {
     <Drawer.Navigator initialRouteName="Home">
       <Drawer.Screen
         name="Home"
-        component={HomeScreen}
+        component={TabScreen}
         options={{
           drawerLabel: 'Home',
           drawerIcon: ({color, size}) => (
