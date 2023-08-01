@@ -9,6 +9,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import SectionsScreen from './src/screens/SectionsScreen';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import Login from './src/screens/Login';
+import PostsScreen from './src/screens/PostsScreen';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -66,6 +67,21 @@ function TabScreen() {
           ),
         }}
       />
+      <Tab.Screen
+        name="Posts"
+        component={PostsScreen}
+        options={{
+          tabBarLabel: 'Posts',
+          tabBarIcon: ({color, size}) => (
+            <FontAwesomeIcon
+              name={'box-archive'}
+              color={color}
+              size={size}
+              solid
+            />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }
@@ -89,6 +105,21 @@ function MyDrawer() {
           drawerLabel: 'Sections',
           drawerIcon: ({color, size}) => (
             <FontAwesomeIcon name={'list'} color={color} size={size} solid />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Posts"
+        component={PostsScreen}
+        options={{
+          drawerLabel: 'Posts',
+          drawerIcon: ({color, size}) => (
+            <FontAwesomeIcon
+              name={'box-archive'}
+              color={color}
+              size={size}
+              solid
+            />
           ),
         }}
       />
