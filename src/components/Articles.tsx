@@ -1,9 +1,9 @@
 import {useCallback, useEffect, useState} from 'react';
-import axios from 'axios';
 import {FlatList, RefreshControl, StyleSheet} from 'react-native';
-import {API_KEY} from '../../env';
 import Article, {ArticleProps} from '../components/Article';
 import {useNavigation} from '@react-navigation/native';
+import {fetchUrl} from '../utils/fetchUrl';
+import {buildArticleUrl} from '../utils/constants';
 
 const NUMBER_OF_ARTICLES_PER_PAGE = 10;
 export default function Articles({category}: {category: string}) {
@@ -18,11 +18,8 @@ export default function Articles({category}: {category: string}) {
 
   const fetchHome = useCallback(async () => {
     try {
-      let data = await axios.get(
-        `https://api.nytimes.com/svc/topstories/v2/${category}.json?api-key=${API_KEY}`,
-      );
-      const res = data.data.results;
-      //figure out setting up a unique id field for articles. react-native-uuid refreshes the images
+      let data = await fetchUrl(buildArticleUrl(category));
+      const res = data.results;
       setTotalArticles(res);
       setArticles(res.slice(0, page * NUMBER_OF_ARTICLES_PER_PAGE));
     } catch (e) {

@@ -3,6 +3,8 @@ import axios from 'axios';
 import {FlatList, StyleSheet, ToastAndroid, View} from 'react-native';
 import {PostProps} from '../components/Post';
 import Post from '../components/Post';
+import {fetchUrl} from '../utils/fetchUrl';
+import {buildPostUrl} from '../utils/constants';
 
 const POSTS_LIMIT = 10;
 export default function PostsScreen() {
@@ -20,10 +22,7 @@ export default function PostsScreen() {
 
   const fetchPosts = useCallback(async () => {
     try {
-      let data = await axios.get(
-        `https://jsonplaceholder.typicode.com/posts?_start=${page}&_limit=${POSTS_LIMIT}`,
-      );
-      const res = data.data;
+      const res = await fetchUrl(buildPostUrl(page, POSTS_LIMIT));
       if (!res.length) {
         console.log('limit reached');
         setIsNoMorePosts(true);
@@ -34,11 +33,12 @@ export default function PostsScreen() {
     } catch (e) {
       console.log({e});
     }
-  }, [page]);
+  }, [page, posts]);
 
   useEffect(() => {
     fetchPosts();
   }, []);
+
   return (
     <View style={styles.screen}>
       <FlatList
